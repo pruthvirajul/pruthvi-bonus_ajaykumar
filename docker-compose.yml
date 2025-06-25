@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: bonus-postgres
+    ports:
+      - "5987:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin321
+      POSTGRES_DB: new_employee_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./Backend
+    container_name: bonus-backend
+    ports:
+      - "3973:3973"
+    environment:
+      PORT: 3973
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: admin321
+      DB_NAME: new_employee_db
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./Frontend
+    container_name: bonus-frontend
+    ports:
+      - "6733:80"
+    depends_on:
+      - backend
+
+  hr_page:
+    build: ./Hr_page
+    container_name: bonus-hr-page
+    ports:
+      - "6732:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+
