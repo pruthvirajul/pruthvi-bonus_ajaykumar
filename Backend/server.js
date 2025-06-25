@@ -17,7 +17,7 @@ app.use(express.json());
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'Password@12345',
+  password: process.env.DB_PASSWORD || 'admin321',
   database: process.env.DB_NAME || 'new_employee_db',
   port: process.env.DB_PORT || 5432
 });
@@ -178,7 +178,7 @@ app.get('/health', (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://16.170.249.198:${port}`);
 });
 
 process.on('unhandledRejection', (err) => {
